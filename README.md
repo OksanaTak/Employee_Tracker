@@ -60,7 +60,7 @@ Design the database schema as shown in the following image:
 
 As the image illustrates, your schema should contain the following three tables:
 
-* `department`
+D
 
     * `id`: `INT PRIMARY KEY`
 
@@ -76,7 +76,7 @@ As the image illustrates, your schema should contain the following three tables:
 
     * `department_id`: `INT` to hold reference to department role belongs to
 
-* `employee`
+`
 
     * `id`: `INT PRIMARY KEY`
 
