@@ -22,6 +22,6 @@ create table employee (
   id int not null auto_increment,
   first_name VARCHAR(30),
   last_name varchar(30),
-  role_id INT,
-  manager_id INT,
+  role_id INT REFERENCES role(id), 
+  manager_id INT REFERENCES employee(id) ON DELETE SET NULL
 )
