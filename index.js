@@ -144,3 +144,73 @@ function viewRoles () {
     });
 
   }
+
+
+  function addRole (){
+    inquirer.prompt([
+      {
+        type:"input", 
+        massage: "Enter Role's Title", 
+        name: "Title"
+
+      },
+      {
+        type:"input", 
+        massage: "Enter Role's Salary", 
+        name: "Salary"
+
+      },
+      {
+        type:"list", 
+        massage: "Enter Department ID ", 
+        name: "departmentID",
+        choices:[
+          {name:"IT ",value:1},
+          {name:"Sales",value:2},
+          {name:"HR",value:3},
+        ]
+
+      }
+      
+       
+    ])
+    .then(response => {
+      db.query('INSERT INTO ROLE(title, salary, department_id) VALUES (?,?,?);',
+      [response.Title, response.Salary, response.departmentID]
+      , function (err, result) {
+        if (err) throw err
+        console.table(result)
+        init()
+      })
+    });
+
+  }
+  function addDepartment (){
+    inquirer.prompt([
+      {
+        type:"input", 
+        massage: "Enter Employee's First Name", 
+        name: "firstName"
+
+      },
+      {
+        type:"input", 
+        massage: "Enter Employee's Last Name", 
+        name: "lastName"
+
+      },
+    ])
+   
+    .then(response => {
+      db.query('INSERT INTO EMPLOYEE (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?);',
+      [response.firstName, response.lastName, response.roleID, response.managerID]
+      , function (err, result) {
+        if (err) throw err
+        console.table(result)
+        init()
+      })
+    });
+
+  }
+
+     
