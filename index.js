@@ -180,6 +180,7 @@ function viewRoles () {
           {name:"IT ",value:1},
           {name:"Sales",value:2},
           {name:"HR",value:3},
+          {name:"Customer Service",value:4}
         ]
 
       }
