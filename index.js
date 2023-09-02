@@ -31,6 +31,7 @@ function init () {
           'add Employee',
           'add Department',
           'add Role',
+          'view Employees by Department',
           'Exit App'
         ],
         name: 'user_name'
@@ -57,6 +58,9 @@ function init () {
         case 'add Role':
           addRole()
           break
+          case 'view Employees by Department':
+          viewEmployeesByDepartment()
+          break
         default:
           db.end()
           process.exit(0)
@@ -72,7 +76,14 @@ function viewDepartments () {
     init()
   })
 }
-
+function viewEmployeesByDepartment () {
+  console.log('Display all Employees by Department')
+  db.query('select d.id, d.department_name,e.first_name,e.last_name,e.role_id, r.title, r.salary from department d left join role r on r.department_id = d.id left join employee e on e.role_id = r.id ORDER BY d.id;', function (err, result) {
+    if (err) throw err
+    console.table(result)
+    init()
+  })
+}
 function viewEmployees () {
   console.log('Display all employees')
   db.query('select * from employee;', function (err, result) {
