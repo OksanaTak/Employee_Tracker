@@ -12,7 +12,8 @@ const db = mysql.createConnection({
   database: 'employee_tracker_db'
 })
 
-db.connect(function () {
+db.connect(function (err) {
+  if(err)console.error(err);
   console.log(`Connected to the employee_tracker database.`)
   init()
 })
@@ -93,19 +94,19 @@ function viewRoles () {
     inquirer.prompt([
       {
         type:"input", 
-        massage: "Enter Employee's First Name", 
+        message: "Enter Employee's First Name", 
         name: "firstName"
 
       },
       {
         type:"input", 
-        massage: "Enter Employee's Last Name", 
+        message: "Enter Employee's Last Name", 
         name: "lastName"
 
       },
       {
         type:"list", 
-        massage: "Enter Employee's Role ", 
+        message: "Enter Employee's Role ", 
         name: "roleID",
         choices:[
           {name:"Manager of Sales",value:1},
@@ -119,7 +120,7 @@ function viewRoles () {
       },
       {
         type:"list", 
-        massage: "Enter Manager", 
+        message: "Enter Manager", 
         name: "managerID",
         choices: [
           {name:"John Osborne", value:1},
@@ -150,19 +151,19 @@ function viewRoles () {
     inquirer.prompt([
       {
         type:"input", 
-        massage: "Enter Role's Title", 
+        message: "Enter Role's Title", 
         name: "Title"
 
       },
       {
         type:"input", 
-        massage: "Enter Role's Salary", 
+        message: "Enter Role's Salary", 
         name: "Salary"
 
       },
       {
         type:"list", 
-        massage: "Enter Department ID ", 
+        message: "Enter Department ID ", 
         name: "departmentID",
         choices:[
           {name:"IT ",value:1},
@@ -189,21 +190,15 @@ function viewRoles () {
     inquirer.prompt([
       {
         type:"input", 
-        massage: "Enter Employee's First Name", 
-        name: "firstName"
-
-      },
-      {
-        type:"input", 
-        massage: "Enter Employee's Last Name", 
-        name: "lastName"
+        message: "Enter Department Name", 
+        name: "departmentName"
 
       },
     ])
    
     .then(response => {
-      db.query('INSERT INTO EMPLOYEE (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?);',
-      [response.firstName, response.lastName, response.roleID, response.managerID]
+      db.query('INSERT INTO DEPARTMENT(department_name) VALUES (?);',
+      [response.departmentName]
       , function (err, result) {
         if (err) throw err
         console.table(result)
